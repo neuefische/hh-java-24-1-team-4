@@ -1,0 +1,10 @@
+.userDataInputForm {
+    display: flex;
+    flex-direction: column;
+}
+.input-field {
+    display: grid;
+    grid-template-columns: 100px 300px;
+    gap: 10px;
+    margin-block: 10px;
+}
