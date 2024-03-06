@@ -2,6 +2,8 @@ import './UserProfile.css'
 import {UserData} from "../../Types/UserData.ts";
 import {useState} from "react";
 
+import axios from 'axios';
+
 
 
 export default function UserProfile() {
@@ -11,7 +13,19 @@ export default function UserProfile() {
     function updateUserData(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         setUserData({...userData, [event.target.name]: event.target.value});
+        postUserData(userData);
     }
+
+    const postUserData = (userData: UserData) => {
+        axios.post("api/userData",
+            userData
+        )
+            .then(response => {
+                console.log("Response: ", response);
+            })
+            .catch(error => console.log("Error posting data: ", error))
+    }
+
   return (
       <div className="UserCard">
           <h1>My Profile</h1>
