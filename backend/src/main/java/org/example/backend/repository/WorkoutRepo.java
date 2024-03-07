@@ -1,4 +1,7 @@
-package org.example.backend.model;
+package org.example.backend.repository;
+
+import org.example.backend.model.Intensity;
+import org.example.backend.model.Workout;
 
 import java.util.ArrayList;
 import java.util.List;
