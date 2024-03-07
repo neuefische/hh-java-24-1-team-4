@@ -25,11 +25,6 @@ public class UserService {
         return repo.findById(id).orElseThrow();
     }
 
-    public User updateUserById(User user) {
-        repo.save(user);
-        return repo.findById(user.get_id()).orElseThrow();
-    }
-
     public User deleteUserById(User user) {
         repo.delete(user);
         return user;
