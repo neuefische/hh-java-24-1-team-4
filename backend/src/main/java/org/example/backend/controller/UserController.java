@@ -1,24 +1,29 @@
 package org.example.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.model.User;
+import org.example.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService service;
+
     @GetMapping
-    public List<User> getUserById(){
-        return service.getUserById();
+    public User getUserById(@RequestParam String id ){
+        return service.getUserById(id);
     }
 
-    @PostMapping
+   /* @PostMapping
     public User saveNewUser(@RequestBody User user){
         return service.saveNewUser(user);
-    }
+    }*/
 
-    @PutMapping
+   /* @PutMapping
     public User updateUserById(@RequestBody User user){
         return service.updateUserById(user);
     }
@@ -26,6 +31,6 @@ public class UserController {
     @DeleteMapping
     public User deleteUserById(@RequestBody User user){
         return service.deleteUserById(user);
-    }
+    }*/
 
 }
