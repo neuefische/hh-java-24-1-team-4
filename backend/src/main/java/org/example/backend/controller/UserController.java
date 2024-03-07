@@ -27,10 +27,8 @@ public class UserController {
     public User saveNewUser(@RequestBody User user){
         return service.saveNewUser(user);
     }
-    @PutMapping
-    public User updateUserById(@RequestBody User user){
-        return service.updateUserById(user);
-    }
+    @PutMapping("{id}")
+    public User updateUserById(@PathVariable String id, @RequestBody User user){ return service.saveNewUser(user);}
     @DeleteMapping
     public User deleteUserById(@RequestBody User user){
         return service.deleteUserById(user);
