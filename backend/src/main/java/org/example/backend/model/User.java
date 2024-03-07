@@ -1,12 +1,16 @@
 package org.example.backend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class User {
     private String _id;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     private double weightInKg;
@@ -14,7 +18,8 @@ public class User {
     private double caloriesEatPerDay;
     private double targetWeightReduce;
     private double targetTimeInWeek;
-    private enum activity {
+}
+    /*private enum activity {
         LOW (0.2) , MIDDLE (0.4), HIGH (0.6);
         private final double value; activity (double value){this.value=value;}
         public double getValue() {
@@ -23,7 +28,7 @@ public class User {
     }
     private Workout[] workoutPlan;
     private double bmi = weightInKg / ((heightInCm /100) * (heightInCm /100));
-    private double caloriesUsedPerDayFromActivityAndWeight = (weightInKg * 24 /* +activity.g*/);
+    private double caloriesUsedPerDayFromActivityAndWeight = (weightInKg * 24 *//* +activity.g*//*);
     private double caloriesOverflowPerDay = caloriesEatPerDay - caloriesUsedPerDayFromActivityAndWeight;
     private double caloriesNeedToReducePerWeekForTargetWeightReduce = (caloriesOverflowPerDay * 7) + ((targetWeightReduce * 7000) / targetTimeInWeek);
 
@@ -40,3 +45,4 @@ public class User {
     }
 
 }
+*/
