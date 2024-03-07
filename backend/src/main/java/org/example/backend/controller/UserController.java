@@ -11,26 +11,29 @@ import java.util.List;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
+
+
     private final UserService service;
 
     @GetMapping
-    public User getUserById(@RequestParam String id ){
+    public List<User> getAllUsers(){
+        return service.getAllUsers();
+    }
+    @GetMapping("{id}")
+    public User getUserById(@PathVariable String id){
         return service.getUserById(id);
     }
-
-   /* @PostMapping
+    @PostMapping
     public User saveNewUser(@RequestBody User user){
         return service.saveNewUser(user);
-    }*/
-
-   /* @PutMapping
+    }
+    @PutMapping
     public User updateUserById(@RequestBody User user){
         return service.updateUserById(user);
     }
-
     @DeleteMapping
     public User deleteUserById(@RequestBody User user){
         return service.deleteUserById(user);
-    }*/
+    }
 
 }
