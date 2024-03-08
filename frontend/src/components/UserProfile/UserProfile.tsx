@@ -1,6 +1,6 @@
 import './UserProfile.css'
 import {UserData} from "../../Types/UserData.ts";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import axios from 'axios';
 
@@ -47,18 +47,19 @@ export default function UserProfile() {
         )
             .then(response => {
                 console.log("Response: ", response.data.firstName);
+                setUserData(response.data)
             })
             .catch(error => console.log("Error fetching data: ", error))
     }
 
-    const deleteUserById = (id: string) => {
+    /*const deleteUserById = (id: string) => {
         axios.delete(`api/user/${id}`)
             .then(response => {
                 console.log("Response: ", response.data.firstName);
                 setAllUsers(allUsers.filter(user => user._id !== id));
             })
             .catch(error => console.log("Error fetching data: ", error))
-    }
+    }*/
 
   return (
       <div className="UserCard">
