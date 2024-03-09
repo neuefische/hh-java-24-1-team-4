@@ -3,6 +3,9 @@ import {UserData} from "../../Types/UserData.ts";
 import {useState} from "react";
 
 import axios from 'axios';
+import {FaRegUser} from "react-icons/fa";
+import {FaWeightScale} from "react-icons/fa6";
+import {GiBodyHeight} from "react-icons/gi";
 
 export default function UserProfile() {
 
@@ -79,24 +82,28 @@ export default function UserProfile() {
                     ))}
                 </ul>
           </div>
-            <button onClick={() => postUserData(userData)}>Save</button>
+
             <button onClick={() => fetchUserData()}>Fetch</button>
             <button onClick={() => fetchUserById("1")}>Fetch 1</button>
             <button onClick={() => fetchUserById("2")}>Fetch 2</button>
             <button onClick={() => updateUserData(userData)}>Update</button>
           <form className="userDataInputForm">
               <div className="input-field">
+                  <div className="icon"><FaRegUser/></div>
                   <label htmlFor="name">First Name:</label>
                   <input type="text" name="firstName" onChange={updateInputFields}/>
               </div>
               <div className="input-field">
+                  <div className="icon"><FaWeightScale /></div>
                   <label htmlFor="weight">Weight (kg):</label>
                   <input type="number" name="weightInKg" onChange={updateInputFields}/>
               </div>
               <div className="input-field">
-                  <label htmlFor="height">Height (cm):</label>
+                  <div className="icon"><GiBodyHeight/></div>
+                      <label htmlFor="height">Height (cm):</label>
                   <input type="number" name="heightInCm" onChange={updateInputFields}/>
               </div>
+              <button className="signin" onClick={() => postUserData(userData)}>Sign In</button>
           </form>
       </div>
   )
