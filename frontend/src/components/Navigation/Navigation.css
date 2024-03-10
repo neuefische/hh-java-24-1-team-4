@@ -1,0 +1,22 @@
+
+.nav ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.nav ul li{
+    border-radius: 25px;
+    font-size: 1em;
+    background: #00dfc4;
+    color: #223243;
+    padding: 10px 10px;
+    font-weight: 500;
+    border: #00dfc4;
+    cursor: pointer;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.35),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+    inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+}
