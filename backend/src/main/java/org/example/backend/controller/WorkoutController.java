@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.backend.model.Workout;
 import org.example.backend.service.WorkoutService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,10 @@ public class WorkoutController {
     @GetMapping
     public List<Workout> getAllWorkouts() {
         return workoutService.getAllWorkouts();
+    }
+
+    @GetMapping("/{id}")
+    public Workout getWorkoutById(@PathVariable String id){
+        return workoutService.getWorkoutById(id);
     }
 }
