@@ -28,10 +28,4 @@ public class UserService {
     public void deleteUserById(String id) {
         repo.deleteById(id);
     }
-
-   /* public User updateUser(User user) {
-        repo.save(user);
-        return repo.findById(user.get_id()).orElseThrow();
-    }*/
-
 }
