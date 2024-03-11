@@ -15,6 +15,7 @@ export default function Layout(props: Readonly<LayoutProps>) {
             <main>
                 {props.children}
             </main>
+
             </div>
 
         </>

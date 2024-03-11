@@ -103,7 +103,7 @@ export default function UserProfile() {
                       <label htmlFor="height">Height (cm):</label>
                   <input type="number" name="heightInCm" onChange={updateInputFields}/>
               </div>
-              <button className="signin" onClick={() => postUserData(userData)}>Sign In</button>
+              <button className="signin" onClick={() => postUserData(userData)}>Save</button>
           </form>
       </div>
   )
