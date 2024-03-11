@@ -32,7 +32,6 @@ export default function App() {
          <Routes>
              <Route path="/userprofile" element={<UserProfile/>}/>
              <Route path="/workoutplan" element={<Workoutplan/>}/>
-             <Route path="/user" element={<UserProfile/>}/>
              <Route path="/workouts" element={<Workouts workouts={workouts}/>}/>
              <Route path="/workouts/:id" element={<WorkoutDetailsPage/> }/>
          </Routes>
