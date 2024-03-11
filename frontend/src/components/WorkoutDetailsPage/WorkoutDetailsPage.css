@@ -1,0 +1,32 @@
+.workoutDetailsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border: 8px solid #223243;
+    box-shadow:
+            -5px -5px 15px rgba(255, 255, 255, 0.1),
+            5px 5px 15px rgba(0, 0, 0, 0.35),
+            inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+            inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+    border-radius: 1rem;
+    background: #00dfc4;
+    transition: all 0.3s ease;
+}
+
+.workoutDetailsPage button {
+    border-radius: 25px;
+    font-size: 1em;
+    background: #00dfc4;
+    color: black;
+    padding: 10px 10px;
+    margin: 10px;
+    font-weight: 500;
+    border: #00dfc4;
+    cursor: pointer;
+    box-shadow: 5px 5px 15px grey;
+
+}
