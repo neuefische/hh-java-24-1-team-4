@@ -9,8 +9,6 @@ import {Route, Routes} from "react-router-dom";
 import WorkoutDetailsPage from "./components/WorkoutDetailsPage/WorkoutDetailsPage.tsx";
 import Workoutplan from "./components/Workoutplan/Workoutplan.tsx";
 
-
-
 export default function App() {
 
     const [workouts, setWorkouts] = useState<Workout[]>([])
@@ -33,13 +31,11 @@ export default function App() {
      <Layout>
          <Routes>
              <Route path="/userprofile" element={<UserProfile/>}/>
-             <Route path="/workouts" element={<WorkoutList/>}/>
              <Route path="/workoutplan" element={<Workoutplan/>}/>
              <Route path="/user" element={<UserProfile/>}/>
              <Route path="/workouts" element={<Workouts workouts={workouts}/>}/>
              <Route path="/workouts/:id" element={<WorkoutDetailsPage/> }/>
          </Routes>
-        {/*<UserProfile/>*/}
          {/*<Signin/>*/}
      </Layout>
   )
