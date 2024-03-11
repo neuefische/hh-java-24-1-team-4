@@ -1,0 +1,22 @@
+.workout-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.workout-list h2 {
+    color: #00dfc4;
+}
+.workouts li {
+    list-style: none;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
