@@ -4,13 +4,13 @@ import {useState} from "react";
 
 import axios from 'axios';
 import {FaRegUser} from "react-icons/fa";
-import {FaWeightScale} from "react-icons/fa6";
-import {GiBodyHeight} from "react-icons/gi";
+import {MdOutlineEmail} from "react-icons/md";
+import {RiLockPasswordLine} from "react-icons/ri";
 
 export default function UserProfile() {
 
     const [userData, setUserData] = useState<UserData>({
-        firstName: " ", weightInKg: undefined, heightInCm: undefined
+        firstName: "", lastName: "", email: "", password: ""
     });
     const [allUsers, setAllUsers] = useState<UserData[]>([]);
     function updateInputFields(event: React.ChangeEvent<HTMLInputElement>) {
@@ -67,10 +67,12 @@ export default function UserProfile() {
   return (
       <div className="UserCard">
           <h1>My Profile</h1>
-          <p>Name: {userData.firstName}</p>
-          <p>Weight: {userData.weightInKg}</p>
-          <p>Height: {userData.heightInCm}</p>
-
+          <div className="UserProfile">
+          <p>Firstname: {userData.firstName}</p>
+          <p>Lastname: {userData.lastName}</p>
+          <p>Email: {userData.email}</p>
+          <p>Password: {userData.password}</p>
+          </div>
           <div>
               <ul>
                     {allUsers.map((user) => (
@@ -90,20 +92,21 @@ export default function UserProfile() {
           <form className="userDataInputForm">
               <div className="input-field">
                   <div className="icon"><FaRegUser/></div>
-                  <label htmlFor="name">First Name:</label>
-                  <input type="text" name="firstName" onChange={updateInputFields}/>
+                  <input type="text" name="firstName" value={userData.firstName} placeholder="First Name" onChange={updateInputFields}/>
               </div>
               <div className="input-field">
-                  <div className="icon"><FaWeightScale /></div>
-                  <label htmlFor="weight">Weight (kg):</label>
-                  <input type="number" name="weightInKg" onChange={updateInputFields}/>
+                  <div className="icon"><FaRegUser/></div>
+                  <input type="text" name="lastName" value={userData.lastName} placeholder="Last Name" onChange={updateInputFields}/>
               </div>
               <div className="input-field">
-                  <div className="icon"><GiBodyHeight/></div>
-                      <label htmlFor="height">Height (cm):</label>
-                  <input type="number" name="heightInCm" onChange={updateInputFields}/>
+                  <div className="icon"><MdOutlineEmail/></div>
+                  <input type="text" name="email" value={userData.email} placeholder="Email" onChange={updateInputFields}/>
               </div>
-              <button className="signin" onClick={() => postUserData(userData)}>Save</button>
+              <div className="input-field">
+                  <div className="icon"><RiLockPasswordLine/></div>
+                  <input type="password" name="password" value={userData.password} placeholder="Password" onChange={updateInputFields}/>
+              </div>
+              <button className="save" onClick={() => postUserData(userData)}>Save</button>
           </form>
       </div>
   )
