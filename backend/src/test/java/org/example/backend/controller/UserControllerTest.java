@@ -32,6 +32,4 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
-
-
 }
