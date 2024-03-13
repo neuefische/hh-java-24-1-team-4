@@ -1,8 +1,4 @@
 .header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    flex-direction: row;
+    display: flex;
     justify-content: center;
-    justify-items: center;
-    align-items: center;
 }
