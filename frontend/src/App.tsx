@@ -23,6 +23,8 @@ export default function App() {
     }
     console.log("Workouts: ", workouts);
 
+
+
     useEffect(() => {
         fetchWorkouts();
     } ,[])
