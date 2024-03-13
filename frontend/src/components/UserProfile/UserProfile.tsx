@@ -12,13 +12,12 @@ export default function UserProfile() {
     const loadUser = () => {
         axios.get('/api/user/me')
             .then(response => {
-                console.log("Response: ", response.data)
                 setUserGitHubId(response.data)
-                fetchUserById("1")
+                fetchUserById(response.data)
             })
     }
 
-    const [profileData, setProfileData] = useState<UserData>()
+    const [profileData, setProfileData] = useState<UserData | undefined>(undefined)
 
     const fetchUserById = (id: string) => {
             axios.get(`api/user/${id}`)
@@ -28,26 +27,48 @@ export default function UserProfile() {
                 .catch(error => console.log("Error fetching data: ", error))
     }
 
+    function login() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080': window.location.origin
+
+        window.open(host + '/oauth2/authorization/github', '_self')
+    }
+
     useEffect(() => {
         loadUser()
     }, []);
 
+    function calculateBmi (): string {
+        if (profileData?.weightInKg && profileData?.heightInCm){
+            return (profileData.weightInKg / ((profileData.heightInCm / 100) ** 2)).toFixed(2)
+        }
+        return "no data available"
+
+    }
+
   return (
       <div className="UserCard">
           <h1>My Profile</h1>
-          <div className="UserProfile">
-            <p>Firstname: {profileData?.firstName}</p>
-            <p>Lastname: {profileData?.lastName}</p>
-            <p>Email: {profileData?.email}</p>
-            <p>Password: {profileData?.password}</p>
-              <p>GitHubId: {userGitHubId}</p>
-          </div>
+          {userGitHubId === "anonymousUser" ?
+                <button onClick={login}>login</button>
+            :
+              <div className="UserProfile">
+                  <p>Firstname: {profileData?.firstName}</p>
+                  <p>Lastname: {profileData?.lastName}</p>
+                  <p>Email: {profileData?.email}</p>
+                  <p>Weight: {profileData?.weightInKg} kg</p>
+                  <p>Height: {profileData?.heightInCm} cm</p>
+                  <p>Calories eaten per day: {profileData?.caloriesEatPerDay} cal/d</p>
+                  <p>Target weight reduction: {profileData?.targetWeightReduce} kg</p>
+                  <p>Target Duration for weight reduction: {profileData?.targetTimeInWeek} weeks</p>
+                  <p>Current BMI: {calculateBmi()}</p>
 
+{/*                  <button>logout</button>*/}
+              </div>
+          }
 
       </div>
   )
 }
-
 
 
 /*const [userData, setUserData] = useState<UserData>({

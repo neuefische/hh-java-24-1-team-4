@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o.defaultSuccessUrl("http://localhost:5173"))
+                .oauth2Login(o -> o.defaultSuccessUrl("http://localhost:5173/userprofile"))
                 .authorizeHttpRequests(a -> a
                         .requestMatchers(HttpMethod.POST, "/api/user").authenticated()
                         .requestMatchers("/api/user").permitAll()
