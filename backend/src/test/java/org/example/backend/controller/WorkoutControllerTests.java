@@ -3,7 +3,10 @@ package org.example.backend.controller;
 import org.example.backend.model.Intensity;
 import org.example.backend.model.Workout;
 import org.example.backend.repository.WorkoutRepository;
+import org.example.backend.service.WorkoutService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +14,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -81,4 +90,22 @@ class WorkoutControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
+    @Mock
+    private WorkoutService workoutService;
+
+    @InjectMocks
+    private WorkoutController workoutController;
+
+    @DirtiesContext
+    @Test
+    void testGetAllWorkoutsWithNoSuchElementException() {
+        // Mock the behavior of workoutService to throw a NoSuchElementException
+        when(workoutService.getAllWorkouts()).thenThrow(new NoSuchElementException());
+
+        // Call the method under test
+        List<Workout> result = workoutController.getAllWorkouts();
+
+        // Verify that an empty list is returned when a NoSuchElementException is caught
+        assertEquals(List.of(), result);
+    }
 }
