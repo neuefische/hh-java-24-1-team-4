@@ -7,23 +7,18 @@ import axios from 'axios';
 
 export default function UserProfile() {
 
-    const [profileData, setProfileData] = useState<UserData>()
-    /*const [userData, setUserData] = useState<UserData>({
-        firstName: "", lastName: "", email: "", password: ""
-    });*/
-    /*function updateInputFields(event: React.ChangeEvent<HTMLInputElement>) {
-        event.preventDefault();
-        setUserData({...userData, [event.target.name]: event.target.value});
-    }*/
-    /*const postUserData = (userData: UserData) => {
-        axios.post("api/user",
-            userData
-        )
+    const [userGitHubId, setUserGitHubId] = useState<string>("")
+
+    const loadUser = () => {
+        axios.get('/api/user/me')
             .then(response => {
-                console.log("Response: ", response);
+                console.log("Response: ", response.data)
+                setUserGitHubId(response.data)
+                fetchUserById("1")
             })
-            .catch(error => console.log("Error posting data: ", error))
-    }*/
+    }
+
+    const [profileData, setProfileData] = useState<UserData>()
 
     const fetchUserById = (id: string) => {
             axios.get(`api/user/${id}`)
@@ -33,18 +28,8 @@ export default function UserProfile() {
                 .catch(error => console.log("Error fetching data: ", error))
     }
 
-
-    /*const deleteUserById = (id: string) => {
-        axios.delete(`api/user/${id}`)
-            .then(response => {
-                console.log("Response: ", response.data.firstName);
-                setAllUsers(allUsers.filter(user => user._id !== id));
-            })
-            .catch(error => console.log("Error fetching data: ", error))
-    }*/
-
     useEffect(() => {
-        fetchUserById("1")
+        loadUser()
     }, []);
 
   return (
@@ -55,13 +40,47 @@ export default function UserProfile() {
             <p>Lastname: {profileData?.lastName}</p>
             <p>Email: {profileData?.email}</p>
             <p>Password: {profileData?.password}</p>
+              <p>GitHubId: {userGitHubId}</p>
           </div>
 
-            {/*<button onClick={() => fetchUserData()}>Fetch</button>
+
+      </div>
+  )
+}
+
+
+
+/*const [userData, setUserData] = useState<UserData>({
+     firstName: "", lastName: "", email: "", password: ""
+ });*/
+/*function updateInputFields(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    setUserData({...userData, [event.target.name]: event.target.value});
+}*/
+/*const postUserData = (userData: UserData) => {
+    axios.post("api/user",
+        userData
+    )
+        .then(response => {
+            console.log("Response: ", response);
+        })
+        .catch(error => console.log("Error posting data: ", error))
+}*/
+
+/*const deleteUserById = (id: string) => {
+    axios.delete(`api/user/${id}`)
+        .then(response => {
+            console.log("Response: ", response.data.firstName);
+            setAllUsers(allUsers.filter(user => user._id !== id));
+        })
+        .catch(error => console.log("Error fetching data: ", error))
+}*/
+
+{/*<button onClick={() => fetchUserData()}>Fetch</button>
             <button onClick={() => fetchUserById("1")}>Fetch 1</button>
             <button onClick={() => fetchUserById("2")}>Fetch 2</button>
             <button onClick={() => updateUserData(userData)}>Update</button>*/}
-          {/*<form className="userDataInputForm">
+{/*<form className="userDataInputForm">
               <div className="input-field">
                   <div className="icon"><FaRegUser/></div>
                   <input type="text" name="firstName" value={userData.firstName} placeholder="First Name" onChange={updateInputFields}/>
@@ -80,6 +99,3 @@ export default function UserProfile() {
               </div>
               <button className="save" onClick={() => postUserData(userData)}>Save</button>
           </form>*/}
-      </div>
-  )
-}

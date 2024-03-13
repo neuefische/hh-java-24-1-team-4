@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import Header from "../Header.tsx";
+import Header from "../Header/Header.tsx";
 import "./Layout.css";
 import Navigation from "../Navigation/Navigation.tsx";
 type LayoutProps = {
