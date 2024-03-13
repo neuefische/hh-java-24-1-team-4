@@ -1,5 +1,5 @@
 import './Workoutplan.css';
-import axios, {name} from "axios";
+import axios from "axios";
 import {Workout} from "../../Types/Workout.ts";
 import {WorkoutPlan} from "../../Types/WorkoutPlan.ts";
 import {useEffect, useState} from "react";
