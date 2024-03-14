@@ -31,35 +31,13 @@ export default function Workoutplan(){
         const saturdayDuration = formData.get('saturday-duration') as string;
         const sundayDuration = formData.get('sunday-duration') as string;
         setCurrentWeekWorkoutPlan({
-            monday: {
-                workout: form.monday.value,
-                duration: (parseInt(mondayDuration) ? (parseInt(mondayDuration)) : 0),
-            },
-            tuesday: {
-                workout: form.tuesday.value,
-                duration: (parseInt(tuesdayDuration) ? (parseInt(tuesdayDuration)) : 0),
-            },
-            wednesday: {
-                workout: form.wednesday.value,
-                duration: (parseInt(wednesdayDuration) ? (parseInt(wednesdayDuration)) : 0),
-            },
-            thursday: {
-                workout: form.thursday.value,
-                duration: (parseInt(thursdayDuration) ? (parseInt(thursdayDuration)) : 0),
-            },
-            friday: {
-                workout: form.friday.value,
-                duration: (parseInt(fridayDuration) ? (parseInt(fridayDuration)) : 0),
-            },
-            saturday: {
-                workout: form.saturday.value,
-                duration: (parseInt(saturdayDuration) ? (parseInt(saturdayDuration)) : 0),
-            },
-            sunday: {
-                workout: form.sunday.value,
-                duration: (parseInt(sundayDuration) ? (parseInt(sundayDuration)) : 0),
-            },
-
+            monday: workouts.find(workout => workout._id === form.monday.value),
+            tuesday: workouts.find(workout => workout._id === form.tuesday.value),
+            wednesday: workouts.find(workout => workout._id === form.wednesday.value),
+            thursday: workouts.find(workout => workout._id === form.thursday.value),
+            friday:  workouts.find(workout => workout._id === form.friday.value),
+            saturday: workouts.find(workout => workout._id === form.saturday.value),
+            sunday: workouts.find(workout => workout._id === form.sunday.value),
         } as WorkoutPlan);
     }
 
@@ -72,7 +50,8 @@ export default function Workoutplan(){
         fetchWorkouts();
     }, []);
 
-    function postWorkoutPlan () {
+    function postWorkoutPlan (event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         axios.post("/api/workoutplan", currentWeekWorkoutPlan)
             .then(response => {
                 console.log("Response: ", response.data);
@@ -84,13 +63,13 @@ export default function Workoutplan(){
 return (
     <div className="workout-plan">
         <h3>Workoutplan</h3>
-        <form className="workoutplan-form" onChange={saveWorkoutplan}>
+        <form className="workoutplan-form" onChange={saveWorkoutplan} onSubmit={postWorkoutPlan}>
 
                 <div className="day-area">
                     <label htmlFor="monday">Monday</label>
                     <select className="select-activity"name="monday">
                         {workouts.map(workout => (
-                            <option key={workout._id}>{workout.name}</option>
+                            <option key={workout._id} value={workout._id}>{workout.name}</option>
                         ))}
                     </select>
                 </div><div className="duration-input-field-container">
@@ -102,7 +81,7 @@ return (
                 <label htmlFor="tuesday">Tuesday</label>
                 <select name="tuesday">
                     {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
+                        <option key={workout._id} value={workout._id}>{workout.name}</option>
                     ))}
                 </select>
             </div>
@@ -114,7 +93,7 @@ return (
                 <label htmlFor="wednesday">Wednesday</label>
                 <select name="wednesday">
                     {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
+                        <option key={workout._id} value={workout._id}>{workout.name}</option>
                     ))}
                 </select>
             </div>
@@ -126,7 +105,7 @@ return (
                 <label htmlFor="thursday">Thursday</label>
                 <select name="thursday">
                     {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
+                        <option key={workout._id} value={workout._id}>{workout.name}</option>
                     ))}
                 </select>
             </div>
@@ -138,7 +117,7 @@ return (
                 <label htmlFor="friday">Friday</label>
                 <select name="friday">
                     {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
+                        <option key={workout._id} value={workout._id}>{workout.name}</option>
                     ))}
                 </select>
             </div>
@@ -150,7 +129,7 @@ return (
                 <label htmlFor="saturday">Saturday</label>
                 <select name="saturday">
                     {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
+                        <option key={workout._id} value={workout._id}>{workout.name}</option>
                     ))}
                 </select>
             </div>
@@ -162,19 +141,19 @@ return (
                     <label htmlFor="sunday">Sunday</label>
                     <select name="sunday">
                         {workouts.map(workout => (
-                            <option key={workout._id}>{workout.name}</option>
+                            <option key={workout._id} value={workout._id}>{workout.name}</option>
                         ))}
                     </select>
                 </div>
 
-
-            <div className="duration-input-field-container">
+                <button type="submit" > Save</button>
+    <div className="duration-input-field-container">
                 <input type="number" name="sunday-duration" min="0"
                        placeholder="duration in min"/>
 
-            <button type="submit" onClick={postWorkoutPlan}>Save</button>
-            </div>
-        </form>
+
+</div>
+</form>
     </div>
 )
 }
