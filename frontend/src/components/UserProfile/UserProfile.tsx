@@ -50,7 +50,7 @@ export default function UserProfile() {
       <div className="UserCard">
           <h1>My Profile</h1>
           {userGitHubId === "anonymousUser" ?
-                <button onClick={login}>login</button>
+                <button className="login" onClick={login}>login</button>
             :
               <div className="UserProfile">
                   <p>Firstname: {profileData?.firstName}</p>
