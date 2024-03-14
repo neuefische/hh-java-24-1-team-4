@@ -28,7 +28,6 @@ public class WorkoutController {
             }
         }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Workout> getWorkoutById(@PathVariable String id) {
         try {
