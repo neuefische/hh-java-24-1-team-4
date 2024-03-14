@@ -21,7 +21,7 @@ export default function App() {
             })
             .catch(error => console.log("Error fetching data: ", error))
     }
-    console.log("Workouts: ", workouts);
+    //console.log("Workouts: ", workouts);
 
 
 
