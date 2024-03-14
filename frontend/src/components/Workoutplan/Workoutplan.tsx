@@ -2,15 +2,14 @@ import './Workoutplan.css';
 import axios from "axios";
 import {Workout} from "../../Types/Workout.ts";
 import {WorkoutPlan} from "../../Types/WorkoutPlan.ts";
-import {WorkoutDurationPerDay} from "../../Types/WorkoutDurationPerDay.ts";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 
 export default function Workoutplan(){
 
     const [workouts, setWorkouts] = useState<Workout[]>([])
     const [currentWeekWorkoutPlan, setCurrentWeekWorkoutPlan] = useState<WorkoutPlan>()
-    const [workoutDurationPerDay, setWorkoutDurationPerDay] = useState<WorkoutDurationPerDay>({monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0})
+
     function fetchWorkouts() {
         axios.get("/api/workout")
             .then(response => {
@@ -20,19 +19,9 @@ export default function Workoutplan(){
             .catch(error => console.log("Error fetching data: ", error))
     }
 
-    function saveWorkoutsToWorkoutplan(event: React.FormEvent<HTMLFormElement>) {
+    function saveWorkoutplan(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
-        setCurrentWeekWorkoutPlan({
-            monday: form.monday.value,
-            tuesday: form.tuesday.value,
-            wednesday: form.wednesday.value,
-            thursday: form.thursday.value,
-            friday: form.friday.value,
-            saturday: form.saturday.value,
-            sunday: form.sunday.value,
-        } as WorkoutPlan);
-
         const formData = new FormData(form);
         const mondayDuration = formData.get('monday-duration') as string;
         const tuesdayDuration = formData.get('tuesday-duration') as string;
@@ -41,19 +30,41 @@ export default function Workoutplan(){
         const fridayDuration = formData.get('friday-duration') as string;
         const saturdayDuration = formData.get('saturday-duration') as string;
         const sundayDuration = formData.get('sunday-duration') as string;
-        setWorkoutDurationPerDay({
-            monday: parseInt(mondayDuration)? parseInt(mondayDuration) : 0,
-            tuesday: parseInt(tuesdayDuration)? parseInt(tuesdayDuration) : 0,
-            wednesday: parseInt(wednesdayDuration)? parseInt(wednesdayDuration) : 0,
-            thursday: parseInt(thursdayDuration)? parseInt(thursdayDuration) : 0,
-            friday: parseInt(fridayDuration)? parseInt(fridayDuration) : 0,
-            saturday: parseInt(saturdayDuration)? parseInt(saturdayDuration) : 0,
-            sunday: parseInt(sundayDuration)? parseInt(sundayDuration) : 0
-        } as WorkoutDurationPerDay);
-        }
+        setCurrentWeekWorkoutPlan({
+            monday: {
+                workout: form.monday.value,
+                duration: (parseInt(mondayDuration) ? (parseInt(mondayDuration)) : 0),
+            },
+            tuesday: {
+                workout: form.tuesday.value,
+                duration: (parseInt(tuesdayDuration) ? (parseInt(tuesdayDuration)) : 0),
+            },
+            wednesday: {
+                workout: form.wednesday.value,
+                duration: (parseInt(wednesdayDuration) ? (parseInt(wednesdayDuration)) : 0),
+            },
+            thursday: {
+                workout: form.thursday.value,
+                duration: (parseInt(thursdayDuration) ? (parseInt(thursdayDuration)) : 0),
+            },
+            friday: {
+                workout: form.friday.value,
+                duration: (parseInt(fridayDuration) ? (parseInt(fridayDuration)) : 0),
+            },
+            saturday: {
+                workout: form.saturday.value,
+                duration: (parseInt(saturdayDuration) ? (parseInt(saturdayDuration)) : 0),
+            },
+            sunday: {
+                workout: form.sunday.value,
+                duration: (parseInt(sundayDuration) ? (parseInt(sundayDuration)) : 0),
+            },
+
+        } as WorkoutPlan);
+    }
 
     console.log("Workoutplan: ", currentWeekWorkoutPlan);
-    console.log("Duration: ", workoutDurationPerDay);
+
 
     useEffect(() => {
         fetchWorkouts();
@@ -62,7 +73,7 @@ export default function Workoutplan(){
 return (
     <div className="workout-plan">
         <h3>Workoutplan</h3>
-        <form className="workoutplan-form" onChange={saveWorkoutsToWorkoutplan}>
+        <form className="workoutplan-form" onChange={saveWorkoutplan}>
             <div className="day-area">
                 <label htmlFor="monday">Monday</label>
                 <select className="select-activity" name="monday">
