@@ -1,11 +1,32 @@
 import {Workout} from "./Workout.ts";
 
 export type WorkoutPlan = {
-    monday: Workout;
-    tuesday: Workout;
-    wednesday: Workout;
-    thursday: Workout;
-    friday: Workout;
-    saturday: Workout;
-    sunday: Workout;
+    monday: {
+        workout: Workout;
+        duration: number;
+    };
+    tuesday: {
+        workout: Workout;
+        duration: number;
+    };
+    wednesday: {
+        workout: Workout;
+        duration: number;
+    };
+    thursday: {
+        workout: Workout;
+        duration: number;
+    };
+    friday: {
+        workout: Workout;
+        duration: number;
+    };
+    saturday: {
+        workout: Workout;
+        duration: number;
+    };
+    sunday: {
+        workout: Workout;
+        duration: number;
+    };
 }
