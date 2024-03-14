@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class Workoutplan {
+    private String _id;
     private Workout monday;
     private Workout tuesday;
     private Workout wednesday;

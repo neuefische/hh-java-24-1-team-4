@@ -10,7 +10,7 @@ import lombok.Data;
 public class Workout {
     private String _id;
     private String name;
-    private Intensity intensity;
+    private String intensity;
     private String description;
     private int duration;
 }

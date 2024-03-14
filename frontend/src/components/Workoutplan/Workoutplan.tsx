@@ -63,26 +63,37 @@ export default function Workoutplan(){
         } as WorkoutPlan);
     }
 
-    console.log("Workoutplan: ", currentWeekWorkoutPlan);
+    //console.log("Workoutplan: ", currentWeekWorkoutPlan);
+
+
 
 
     useEffect(() => {
         fetchWorkouts();
     }, []);
 
+    function postWorkoutPlan () {
+        axios.post("/api/workoutplan", currentWeekWorkoutPlan)
+            .then(response => {
+                console.log("Response: ", response.data);
+            })
+            .catch(error => console.log("Error fetching data: ", error))
+
+    }
+
 return (
     <div className="workout-plan">
         <h3>Workoutplan</h3>
         <form className="workoutplan-form" onChange={saveWorkoutplan}>
-            <div className="day-area">
-                <label htmlFor="monday">Monday</label>
-                <select className="select-activity" name="monday">
-                    {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="duration-input-field-container">
+
+                <div className="day-area">
+                    <label htmlFor="monday">Monday</label>
+                    <select className="select-activity"name="monday">
+                        {workouts.map(workout => (
+                            <option key={workout._id}>{workout.name}</option>
+                        ))}
+                    </select>
+                </div><div className="duration-input-field-container">
                 <input type="number" name="monday-duration" min="0"
                        placeholder="duration in min"/>
             </div>
@@ -148,16 +159,20 @@ return (
                        placeholder="duration in min"/>
             </div>
             <div className="day-area">
-                <label htmlFor="sunday">Sunday</label>
-                <select name="sunday">
-                    {workouts.map(workout => (
-                        <option key={workout._id}>{workout.name}</option>
-                    ))}
-                </select>
-            </div>
+                    <label htmlFor="sunday">Sunday</label>
+                    <select name="sunday">
+                        {workouts.map(workout => (
+                            <option key={workout._id}>{workout.name}</option>
+                        ))}
+                    </select>
+                </div>
+
+
             <div className="duration-input-field-container">
                 <input type="number" name="sunday-duration" min="0"
                        placeholder="duration in min"/>
+
+            <button type="submit" onClick={postWorkoutPlan}>Save</button>
             </div>
         </form>
     </div>

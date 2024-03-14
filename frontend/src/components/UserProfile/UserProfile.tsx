@@ -13,6 +13,7 @@ export default function UserProfile() {
         axios.get('/api/user/me')
             .then(response => {
                 setUserGitHubId(response.data)
+                console.log("UserGitHubId: ", response.data)
                 fetchUserById(response.data)
             })
     }

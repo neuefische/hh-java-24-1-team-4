@@ -1,6 +1,5 @@
 package org.example.backend.controller;
 
-import org.example.backend.model.Intensity;
 import org.example.backend.model.Workout;
 import org.example.backend.repository.WorkoutRepository;
 import org.example.backend.service.WorkoutService;
