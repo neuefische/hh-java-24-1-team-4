@@ -62,9 +62,9 @@ export default function Workoutplan(){
 
 return (
     <div className="workout-plan">
-        <h3>Workoutplan</h3>
-        <form className="workoutplan-form" onChange={saveWorkoutplan} onSubmit={postWorkoutPlan}>
-
+        <h2>Workoutplan</h2>
+        <div className="workoutplan-form">
+            <form className="form" onChange={saveCalender} onSubmit={postWorkoutPlan}>
                 <div className="day-area">
                     <label htmlFor="monday">Monday</label>
                     <select className="select-activity"name="monday">
@@ -145,8 +145,7 @@ return (
                         ))}
                     </select>
                 </div>
-
-                <button type="submit" > Save</button>
+                <button type="submit" className="save">Save</button>
     <div className="duration-input-field-container">
                 <input type="number" name="sunday-duration" min="0"
                        placeholder="duration in min"/>

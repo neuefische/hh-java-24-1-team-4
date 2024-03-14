@@ -14,7 +14,7 @@ export default function WorkoutCard({workout}: Readonly<WorkoutCardProps>){
     }
     return (
         <button className="workout-card" onClick={() => (goToWorkoutDetailsPage(workout._id))}>
-            <h3>{workout.name}</h3>
+            <h3>{workout.name}🏅</h3>
             <p>{workout.description}</p>
             <p>Intesity: {workout.intensity}</p>
             <p>Duration in min: {workout.duration}</p>

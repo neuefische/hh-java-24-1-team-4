@@ -1,8 +1,11 @@
 .workout-plan {
     color: white;
-    display: grid;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
     text-align: center;
 }
 .workoutplan-form {
@@ -10,10 +13,17 @@
     grid-template-rows: repeat(7, 1fr);
     grid-template-columns: repeat(2, 1fr);
 }
+
+.form{
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     align-items: center;
+}
 .day-area {
-    grid-column: 1;
-    border: 1px solid white;
-    padding: 10px;
+    border: 1px solid #00dfc4;
+    border-radius: 10px;
+    padding: 15px;
     text-align: center;
     justify-self: flex-end;
     display: grid;
@@ -21,6 +31,37 @@
 }
 label {
     text-align: start;
+}
+.day-area label {
+    color: #00dfc4;
+    font-size: 1em;
+}
+.day-area select {
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    background: #223243;
+    color: #fff;
+    border: none;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+            5px 5px 15px rgba(0, 0, 0, 0.35);
+    outline: none;
+}
+.save{
+    width: 100px;
+    border-radius: 25px;
+    font-size: 1em;
+    background: #00dfc4;
+    color: #223243;
+    padding: 10px;
+    font-weight: 500;
+    border: #00dfc4;
+    cursor: pointer;
+    box-shadow:
+            -5px -5px 15px rgba(255, 255, 255, 0.1),
+            5px 5px 15px rgba(0, 0, 0, 0.35),
+            inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+            inset 5px 5px 15px rgba(0, 0, 0, 0.35);
 }
 
 .duration-input-field-container {
