@@ -18,6 +18,11 @@ public class User {
     private double caloriesEatPerDay;
     private double targetWeightReduce;
     private double targetTimeInWeek;
+
+    private final double caloriesUsedPerDayFromWeight = weightInKg * 24 * 1.2;
+    private final double caloriesOverflowPerDay = caloriesEatPerDay - caloriesUsedPerDayFromWeight;
+    private final double caloriesNeedToReducePerWeekForTargetWeightReduce = (caloriesOverflowPerDay * 7) + ((targetWeightReduce * 7000) / targetTimeInWeek);
+
 }
     /*private enum activity {
         LOW (0.2) , MIDDLE (0.4), HIGH (0.6);
