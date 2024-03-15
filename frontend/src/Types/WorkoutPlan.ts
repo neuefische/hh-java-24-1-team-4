@@ -3,60 +3,61 @@ import {Workout} from "./Workout.ts";
 export type WorkoutPlan = {
     monday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     tuesday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     wednesday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     thursday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     friday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     saturday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
     sunday: {
         workout: Workout;
-        duration: number;
+        durationPerDay: number;
     };
 }
+
 export type  NewWorkoutplan = {
     monday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     tuesday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     wednesday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     thursday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     friday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     saturday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
     sunday?: {
         workout?: Workout;
-        duration?: number;
+        durationPerDay?: number;
     };
 }

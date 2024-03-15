@@ -34,7 +34,7 @@ export default function Workoutplan() {
         setCurrentWeekWorkoutPlan({
             ...currentWeekWorkoutPlan, [e.target.name]: {
                 ...currentWeekWorkoutPlan[e.target.name as keyof WorkoutPlan]
-                , duration: e.target.valueAsNumber
+                , durationPerDay: e.target.valueAsNumber
             }
         })
     }
