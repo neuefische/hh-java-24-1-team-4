@@ -13,4 +13,5 @@ public class Workout {
     private String intensity;
     private String description;
     private int duration;
+    private int caloriesPerMinute;
 }
