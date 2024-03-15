@@ -1,4 +1,4 @@
-import './Workoutplan.css';
+import "./Workoutplan.css";
 import axios from "axios";
 import {Workout} from "../../Types/Workout.ts";
 import {NewWorkoutplan, WorkoutPlan} from "../../Types/WorkoutPlan.ts";
@@ -40,7 +40,7 @@ export default function Workoutplan() {
     }
 
     const loadUser = () => {
-        axios.get('/api/user/me')
+        axios.get("/api/user/me")
             .then(response => {
                 fetchUserById(response.data)
             })
@@ -62,7 +62,7 @@ export default function Workoutplan() {
             const caloriesOverflowPerDay: number = profileData?.caloriesEatPerDay - caloriesUsedPerDayFromWeight;
             const targetWeightReduce: number = profileData?.targetWeightReduce;
             const targetTimeInWeek: number = profileData?.targetTimeInWeek;
-            return (caloriesOverflowPerDay * 7) + ((targetWeightReduce * 7000) / targetTimeInWeek);
+            return Math.round((caloriesOverflowPerDay * 7) + ((targetWeightReduce * 7000) / targetTimeInWeek));
         }
         return 0;
     }
@@ -78,7 +78,7 @@ export default function Workoutplan() {
             const caloriesBurnedOnSunday = (currentWeekWorkoutPlan.sunday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.sunday?.durationPerDay ?? 0);
             const sum = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
                 + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
-            setCaloriesNeedToReduce(sum)
+            setCaloriesNeedToReduce(sum);
         }
     }
 
@@ -105,100 +105,104 @@ export default function Workoutplan() {
         <div>
             <div className="workout-plan">
                 <h2>Workoutplan</h2>
-                <div className="workoutplan-form">
+                <div>
                     <form className="form" onSubmit={postWorkoutPlan}>
-                        <div className="day-area">
-                            <label htmlFor="monday">Monday</label>
-                            <select className="select-activity" name="monday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="monday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
+                        <div className="workoutplan-form">
+                            <div className="day-area">
+                                <label htmlFor="monday">Monday</label>
+                                <select className="select-activity" name="monday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="monday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
 
-                        <div className="day-area">
-                            <label htmlFor="tuesday">Tuesday</label>
-                            <select name="tuesday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="tuesday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-                        <div className="day-area">
-                            <label htmlFor="wednesday">Wednesday</label>
-                            <select name="wednesday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="wednesday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-                        <div className="day-area">
-                            <label htmlFor="thursday">Thursday</label>
-                            <select name="thursday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="thursday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-                        <div className="day-area">
-                            <label htmlFor="friday">Friday</label>
-                            <select name="friday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="friday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-                        <div className="day-area">
-                            <label htmlFor="saturday">Saturday</label>
-                            <select name="saturday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="saturday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-                        <div className="day-area">
-                            <label htmlFor="sunday">Sunday</label>
-                            <select name="sunday" onChange={onWorkoutChange}>
-                                {workouts.map(workout => (
-                                    <option key={workout._id} value={workout._id}>{workout.name}</option>
-                                ))}
-                            </select>
+                            <div className="day-area">
+                                <label htmlFor="tuesday">Tuesday</label>
+                                <select name="tuesday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="tuesday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
+                            <div className="day-area">
+                                <label htmlFor="wednesday">Wednesday</label>
+                                <select name="wednesday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="wednesday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
+                            <div className="day-area">
+                                <label htmlFor="thursday">Thursday</label>
+                                <select name="thursday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="thursday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
+                            <div className="day-area">
+                                <label htmlFor="friday">Friday</label>
+                                <select name="friday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="friday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
+                            <div className="day-area">
+                                <label htmlFor="saturday">Saturday</label>
+                                <select name="saturday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="saturday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
+                            <div className="day-area">
+                                <label htmlFor="sunday">Sunday</label>
+                                <select name="sunday" onChange={onWorkoutChange}>
+                                    {workouts.map(workout => (
+                                        <option key={workout._id} value={workout._id}>{workout.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="duration-input-field-container">
+                                <input type="number" name="sunday" min="0" onChange={onDurationChange}
+                                       placeholder="duration in min"/>
+                            </div>
                         </div>
                         <button type="submit" className="save">Save</button>
-                        <div className="duration-input-field-container">
-                            <input type="number" name="sunday" min="0" onChange={onDurationChange}
-                                   placeholder="duration in min"/>
-                        </div>
-
                     </form>
+                    <div>
+                        <p>Calories you need to reduce per week for whished weight
+                            reduction: {calculateCaloriesNeedToReducePerWeekForTargetWeightReduce()} cal</p>
+                        <p>Calories you will reduce this week with through your current
+                            workoutplan: {caloriesNeedToReduce} cal</p>
+                    </div>
                 </div>
-                <p>Calories you need to reduce per week for whished weight
-                    reduction: {calculateCaloriesNeedToReducePerWeekForTargetWeightReduce()}</p>
-                <p>Calories you will reduce this week with through your current workoutplan: {caloriesNeedToReduce}</p>
             </div>
         </div>
     )
