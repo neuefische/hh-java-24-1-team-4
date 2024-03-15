@@ -1,19 +1,17 @@
 import './Workoutplan.css';
 import axios from "axios";
 import {Workout} from "../../Types/Workout.ts";
-import {WorkoutPlan} from "../../Types/WorkoutPlan.ts";
-import React, {ChangeEvent, useEffect, useState} from "react";
+import {NewWorkoutplan, WorkoutPlan} from "../../Types/WorkoutPlan.ts";
+import {ChangeEvent, useEffect, useState} from "react";
 import {UserData} from "../../Types/UserData.ts";
 
 
 export default function Workoutplan() {
 
     const [workouts, setWorkouts] = useState<Workout[]>([])
-    const [currentWeekWorkoutPlan, setCurrentWeekWorkoutPlan] = useState<WorkoutPlan>()
+    const [currentWeekWorkoutPlan, setCurrentWeekWorkoutPlan] = useState<NewWorkoutplan>({})
     const [caloriesNeedToReduce , setCaloriesNeedToReduce ] = useState<number>(0)
-    const [selectedDayOfWeek, setSelectedDayOfWeek] = useState<string>("")
-    const [ duration, setDuration] = useState<number>(0)
-    const [ monday, setMonday] = useState()
+
     function fetchWorkouts() {
         axios.get("/api/workout")
             .then(response => {
@@ -22,6 +20,18 @@ export default function Workoutplan() {
             })
             .catch(error => console.log("Error fetching data: ", error))
     }
+    function onWorkoutChange(e : ChangeEvent<HTMLSelectElement>){
+        setCurrentWeekWorkoutPlan({...currentWeekWorkoutPlan, [e.target.name]:{...currentWeekWorkoutPlan[e.target.name as keyof WorkoutPlan]
+                ,workout:e.target.value}})
+    }
+    function onDurationChange(e : ChangeEvent<HTMLInputElement>){
+        setCurrentWeekWorkoutPlan({...currentWeekWorkoutPlan, [e.target.name]:{...currentWeekWorkoutPlan[e.target.name as keyof WorkoutPlan]
+                ,duration:e.target.valueAsNumber}})
+    }
+
+
+
+
 
     /*function saveWorkoutplan(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -45,10 +55,8 @@ export default function Workoutplan() {
         } as WorkoutPlan);
     }*/
 
-    function handleChange(){
 
-    }
-    //console.log("Workoutplan: ", currentWeekWorkoutPlan);
+    console.log("Workoutplan: ", currentWeekWorkoutPlan);
 
 
     const loadUser = () => {
@@ -81,13 +89,13 @@ export default function Workoutplan() {
     console.log("profileData: " + profileData);
     function calculateCaloriesReducedByCurrentWorkoutplan() : void{
         if(currentWeekWorkoutPlan) {
-            const caloriesBurnedOnMonday = currentWeekWorkoutPlan.monday.workout.caloriesPerMinute * currentWeekWorkoutPlan.monday.duration;
-            const caloriesBurnedOnTuesday = currentWeekWorkoutPlan.tuesday.workout.caloriesPerMinute * currentWeekWorkoutPlan.tuesday.duration;
-            const caloriesBurnedOnWednesday = currentWeekWorkoutPlan.wednesday.workout.caloriesPerMinute * currentWeekWorkoutPlan.wednesday.duration;
-            const caloriesBurnedOnThursday = currentWeekWorkoutPlan.thursday.workout.caloriesPerMinute * currentWeekWorkoutPlan.thursday.duration;
-            const caloriesBurnedOnFriday = currentWeekWorkoutPlan.friday.workout.caloriesPerMinute * currentWeekWorkoutPlan.friday.duration;
-            const caloriesBurnedOnSaturday = currentWeekWorkoutPlan.saturday.workout.caloriesPerMinute * currentWeekWorkoutPlan.saturday.duration;
-            const caloriesBurnedOnSunday = currentWeekWorkoutPlan.sunday.workout.caloriesPerMinute * currentWeekWorkoutPlan.sunday.duration;
+            const caloriesBurnedOnMonday = (currentWeekWorkoutPlan.monday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.monday?.duration??0);
+            const caloriesBurnedOnTuesday = (currentWeekWorkoutPlan.tuesday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.tuesday?.duration??0);
+            const caloriesBurnedOnWednesday = (currentWeekWorkoutPlan.wednesday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.wednesday?.duration??0);
+            const caloriesBurnedOnThursday = (currentWeekWorkoutPlan.thursday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.thursday?.duration??0);
+            const caloriesBurnedOnFriday = (currentWeekWorkoutPlan.friday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.friday?.duration??0);
+            const caloriesBurnedOnSaturday = (currentWeekWorkoutPlan.saturday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.saturday?.duration??0);
+            const caloriesBurnedOnSunday = (currentWeekWorkoutPlan.sunday?.workout?.caloriesPerMinute??0) * (currentWeekWorkoutPlan.sunday?.duration??0);
             const sum = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
                 + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
             setCaloriesNeedToReduce(sum)
@@ -100,7 +108,7 @@ useEffect(() => {
 }, []);
     useEffect(() => {
         calculateCaloriesReducedByCurrentWorkoutplan();
-    }, []);
+    }, [currentWeekWorkoutPlan]);
 
     function postWorkoutPlan(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -120,80 +128,80 @@ useEffect(() => {
             <form className="form">
                 <div className="day-area">
                     <label htmlFor="monday">Monday</label>
-                    <select className="select-activity" name="monday" onChange={(e )=> setSelectedDayOfWeek(e.target.value)}>
+                    <select className="select-activity" name="monday" onChange={onWorkoutChange}>
                         {workouts.map(workout => (
                             <option key={workout._id} value={workout._id}>{workout.name}</option>
                         ))}
                     </select>
                 </div>
                 <div className="duration-input-field-container">
-                    <input type="number" name="monday" min="0" onChange={(e )=> setDuration (Number(e.target.value))}
+                    <input type="number" name="monday" min="0" onChange={onDurationChange}
                            placeholder="duration in min"/>
                 </div>
 
                     <div className="day-area">
                         <label htmlFor="tuesday">Tuesday</label>
-                        <select name="tuesday">
+                        <select name="tuesday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="duration-input-field-container">
-                        <input type="number" name="tuesday-duration" min="0"
+                        <input type="number" name="tuesday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
                     <div className="day-area">
                         <label htmlFor="wednesday">Wednesday</label>
-                        <select name="wednesday">
+                        <select name="wednesday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="duration-input-field-container">
-                        <input type="number" name="wednesay-duration" min="0"
+                        <input type="number" name="wednesday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
                     <div className="day-area">
                         <label htmlFor="thursday">Thursday</label>
-                        <select name="thursday">
+                        <select name="thursday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="duration-input-field-container">
-                        <input type="number" name="thursday-duration" min="0"
+                        <input type="number" name="thursday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
                     <div className="day-area">
                         <label htmlFor="friday">Friday</label>
-                        <select name="friday">
+                        <select name="friday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="duration-input-field-container">
-                        <input type="number" name="friday-duration" min="0"
+                        <input type="number" name="friday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
                     <div className="day-area">
                         <label htmlFor="saturday">Saturday</label>
-                        <select name="saturday">
+                        <select name="saturday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="duration-input-field-container">
-                        <input type="number" name="saturday-duration" min="0"
+                        <input type="number" name="saturday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
                     <div className="day-area">
                         <label htmlFor="sunday">Sunday</label>
-                        <select name="sunday">
+                        <select name="sunday" onChange={onWorkoutChange}>
                             {workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
@@ -201,7 +209,7 @@ useEffect(() => {
                     </div>
                     <button type="submit" className="save">Save</button>
                     <div className="duration-input-field-container">
-                        <input type="number" name="sunday-duration" min="0"
+                        <input type="number" name="sunday" min="0" onChange={onDurationChange}
                                placeholder="duration in min"/>
                     </div>
 
