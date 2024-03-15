@@ -22,14 +22,12 @@
 label {
     text-align: start;
 }
-label {
-    text-align: start;
-}
 
 .duration-input-field-container {
     grid-column: 2;
     border: 1px solid white;
     padding: 10px;
+    justify-self: flex-start;
 }
 .save{
     width: 100px;
@@ -46,11 +44,5 @@ label {
             5px 5px 15px rgba(0, 0, 0, 0.35),
             inset -5px -5px 15px rgba(255, 255, 255, 0.1),
             inset 5px 5px 15px rgba(0, 0, 0, 0.35);
-}
-
-.duration-input-field-container {
-    grid-column: 2;
-    border: 1px solid white;
-    padding: 10px;
 }
 

@@ -10,10 +10,8 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #223243;
-    background-image: url("/Users/siqichen/IdeaProjects/hh-java-24-1-team-4/frontend/src/boxer-1280.jpg");
     background-size: cover;
-    background-attachment: fixed;
+    background: #223243 url("../../ressources/images/boxer-1280.jpg") fixed;
 }
 
 .container{

@@ -21,10 +21,6 @@ export default function App() {
             })
             .catch(error => console.log("Error fetching data: ", error))
     }
-    //console.log("Workouts: ", workouts);
-
-
-
     useEffect(() => {
         fetchWorkouts();
     } ,[])
@@ -37,7 +33,6 @@ export default function App() {
              <Route path="/workouts" element={<Workouts workouts={workouts}/>}/>
              <Route path="/workouts/:id" element={<WorkoutDetailsPage/> }/>
          </Routes>
-         {/*<Signin/>*/}
      </Layout>
   )
 }
