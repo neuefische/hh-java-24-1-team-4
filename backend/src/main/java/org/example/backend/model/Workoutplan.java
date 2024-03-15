@@ -8,11 +8,11 @@ import lombok.Data;
 @Builder
 public class Workoutplan {
     private String _id;
-    private Workout monday;
-    private Workout tuesday;
-    private Workout wednesday;
-    private Workout thursday;
-    private Workout friday;
-    private Workout saturday;
-    private Workout sunday;
+    private Day monday;
+    private Day tuesday;
+    private Day wednesday;
+    private Day thursday;
+    private Day friday;
+    private Day saturday;
+    private Day sunday;
 }
