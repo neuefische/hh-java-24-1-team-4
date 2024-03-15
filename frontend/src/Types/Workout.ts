@@ -4,4 +4,5 @@ export type Workout = {
     intensity: string;
     description: string;
     duration: number;
+    caloriesPerMinute: number;
 }
