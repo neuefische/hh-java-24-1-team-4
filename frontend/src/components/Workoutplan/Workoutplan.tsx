@@ -2,7 +2,7 @@ import './Workoutplan.css';
 import axios from "axios";
 import {Workout} from "../../Types/Workout.ts";
 import {WorkoutPlan} from "../../Types/WorkoutPlan.ts";
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {UserData} from "../../Types/UserData.ts";
 
 
@@ -10,7 +10,10 @@ export default function Workoutplan() {
 
     const [workouts, setWorkouts] = useState<Workout[]>([])
     const [currentWeekWorkoutPlan, setCurrentWeekWorkoutPlan] = useState<WorkoutPlan>()
-
+    const [caloriesNeedToReduce , setCaloriesNeedToReduce ] = useState<number>(0)
+    const [selectedDayOfWeek, setSelectedDayOfWeek] = useState<string>("")
+    const [ duration, setDuration] = useState<number>(0)
+    const [ monday, setMonday] = useState()
     function fetchWorkouts() {
         axios.get("/api/workout")
             .then(response => {
@@ -20,7 +23,7 @@ export default function Workoutplan() {
             .catch(error => console.log("Error fetching data: ", error))
     }
 
-    function saveWorkoutplan(event: React.FormEvent<HTMLFormElement>) {
+    /*function saveWorkoutplan(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
         const formData = new FormData(form);
@@ -40,8 +43,11 @@ export default function Workoutplan() {
             saturday: workouts.find(workout => workout._id === form.saturday.value),
             sunday: workouts.find(workout => workout._id === form.sunday.value),
         } as WorkoutPlan);
-    }
+    }*/
 
+    function handleChange(){
+
+    }
     //console.log("Workoutplan: ", currentWeekWorkoutPlan);
 
 
@@ -73,25 +79,28 @@ export default function Workoutplan() {
     }
     console.log("workout:" + workouts.map((workout)=> (Object.values(workout))));
     console.log("profileData: " + profileData);
-    function calculateCaloriesReducedByCurrentWorkoutplan() : number{
-        if(currentWeekWorkoutPlan?.monday){
-            const caloriesBurnedOnMonday = currentWeekWorkoutPlan?.monday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.monday.duration;
-            const caloriesBurnedOnTuesday = currentWeekWorkoutPlan?.tuesday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.tuesday.duration;
-            const caloriesBurnedOnWednesday = currentWeekWorkoutPlan?.wednesday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.wednesday.duration;
-            const caloriesBurnedOnThursday = currentWeekWorkoutPlan?.thursday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.thursday.duration;
-            const caloriesBurnedOnFriday = currentWeekWorkoutPlan?.friday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.friday.duration;
-            const caloriesBurnedOnSaturday = currentWeekWorkoutPlan?.saturday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.saturday.duration;
-            const caloriesBurnedOnSunday = currentWeekWorkoutPlan?.sunday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.sunday.duration;
-            const sum : number = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
-            + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
-            return sum;
+    function calculateCaloriesReducedByCurrentWorkoutplan() : void{
+        if(currentWeekWorkoutPlan) {
+            const caloriesBurnedOnMonday = currentWeekWorkoutPlan.monday.workout.caloriesPerMinute * currentWeekWorkoutPlan.monday.duration;
+            const caloriesBurnedOnTuesday = currentWeekWorkoutPlan.tuesday.workout.caloriesPerMinute * currentWeekWorkoutPlan.tuesday.duration;
+            const caloriesBurnedOnWednesday = currentWeekWorkoutPlan.wednesday.workout.caloriesPerMinute * currentWeekWorkoutPlan.wednesday.duration;
+            const caloriesBurnedOnThursday = currentWeekWorkoutPlan.thursday.workout.caloriesPerMinute * currentWeekWorkoutPlan.thursday.duration;
+            const caloriesBurnedOnFriday = currentWeekWorkoutPlan.friday.workout.caloriesPerMinute * currentWeekWorkoutPlan.friday.duration;
+            const caloriesBurnedOnSaturday = currentWeekWorkoutPlan.saturday.workout.caloriesPerMinute * currentWeekWorkoutPlan.saturday.duration;
+            const caloriesBurnedOnSunday = currentWeekWorkoutPlan.sunday.workout.caloriesPerMinute * currentWeekWorkoutPlan.sunday.duration;
+            const sum = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
+                + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
+            setCaloriesNeedToReduce(sum)
         }
-        return 0;
     }
 useEffect(() => {
     fetchWorkouts();
     loadUser();
+
 }, []);
+    useEffect(() => {
+        calculateCaloriesReducedByCurrentWorkoutplan();
+    }, []);
 
     function postWorkoutPlan(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -111,14 +120,14 @@ useEffect(() => {
             <form className="form">
                 <div className="day-area">
                     <label htmlFor="monday">Monday</label>
-                    <select className="select-activity" name="monday">
+                    <select className="select-activity" name="monday" onChange={(e )=> setSelectedDayOfWeek(e.target.value)}>
                         {workouts.map(workout => (
                             <option key={workout._id} value={workout._id}>{workout.name}</option>
                         ))}
                     </select>
                 </div>
                 <div className="duration-input-field-container">
-                    <input type="number" name="monday-duration" min="0"
+                    <input type="number" name="monday" min="0" onChange={(e )=> setDuration (Number(e.target.value))}
                            placeholder="duration in min"/>
                 </div>
 
@@ -199,7 +208,7 @@ useEffect(() => {
                 </form>
             </div>
             <p>Calories you need to reduce per week for whished weight reduction: {calculateCaloriesNeedToReducePerWeekForTargetWeightReduce()}</p>
-            <p>Calories you will reduce this week with through your current workoutplan: {calculateCaloriesReducedByCurrentWorkoutplan()}</p>
+            <p>Calories you will reduce this week with through your current workoutplan: {caloriesNeedToReduce}</p>
         </div>
     )
 }
