@@ -69,13 +69,13 @@ export default function Workoutplan() {
 
     function calculateCaloriesReducedByCurrentWorkoutplan(): void {
         if (currentWeekWorkoutPlan) {
-            const caloriesBurnedOnMonday = (currentWeekWorkoutPlan.monday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.monday?.duration ?? 0);
-            const caloriesBurnedOnTuesday = (currentWeekWorkoutPlan.tuesday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.tuesday?.duration ?? 0);
-            const caloriesBurnedOnWednesday = (currentWeekWorkoutPlan.wednesday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.wednesday?.duration ?? 0);
-            const caloriesBurnedOnThursday = (currentWeekWorkoutPlan.thursday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.thursday?.duration ?? 0);
-            const caloriesBurnedOnFriday = (currentWeekWorkoutPlan.friday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.friday?.duration ?? 0);
-            const caloriesBurnedOnSaturday = (currentWeekWorkoutPlan.saturday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.saturday?.duration ?? 0);
-            const caloriesBurnedOnSunday = (currentWeekWorkoutPlan.sunday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.sunday?.duration ?? 0);
+            const caloriesBurnedOnMonday = (currentWeekWorkoutPlan.monday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.monday?.durationPerDay ?? 0);
+            const caloriesBurnedOnTuesday = (currentWeekWorkoutPlan.tuesday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.tuesday?.durationPerDay ?? 0);
+            const caloriesBurnedOnWednesday = (currentWeekWorkoutPlan.wednesday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.wednesday?.durationPerDay ?? 0);
+            const caloriesBurnedOnThursday = (currentWeekWorkoutPlan.thursday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.thursday?.durationPerDay ?? 0);
+            const caloriesBurnedOnFriday = (currentWeekWorkoutPlan.friday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.friday?.durationPerDay ?? 0);
+            const caloriesBurnedOnSaturday = (currentWeekWorkoutPlan.saturday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.saturday?.durationPerDay ?? 0);
+            const caloriesBurnedOnSunday = (currentWeekWorkoutPlan.sunday?.workout?.caloriesPerMinute ?? 0) * (currentWeekWorkoutPlan.sunday?.durationPerDay ?? 0);
             const sum = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
                 + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
             setCaloriesNeedToReduce(sum)
