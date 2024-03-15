@@ -61,7 +61,6 @@ export default function Workoutplan() {
             .catch(error => console.log("Error fetching data: ", error))
     }
     function calculateCaloriesNeedToReducePerWeekForTargetWeightReduce() : number{
-
         if (profileData?.weightInKg && profileData?.caloriesEatPerDay &&
             profileData?.targetWeightReduce && profileData?.targetTimeInWeek){
             const caloriesUsedPerDayFromWeight : number = profileData?.weightInKg * 24 * 1.2;
@@ -71,14 +70,24 @@ export default function Workoutplan() {
             return (caloriesOverflowPerDay * 7) + ((targetWeightReduce * 7000) / targetTimeInWeek);
         }
         return 0;
-
-
     }
-
-
-
-
-
+    console.log("workout:" + workouts.map((workout)=> (Object.values(workout))));
+    console.log("profileData: " + profileData);
+    function calculateCaloriesReducedByCurrentWorkoutplan() : number{
+        if(currentWeekWorkoutPlan?.monday){
+            const caloriesBurnedOnMonday = currentWeekWorkoutPlan?.monday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.monday.duration;
+            const caloriesBurnedOnTuesday = currentWeekWorkoutPlan?.tuesday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.tuesday.duration;
+            const caloriesBurnedOnWednesday = currentWeekWorkoutPlan?.wednesday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.wednesday.duration;
+            const caloriesBurnedOnThursday = currentWeekWorkoutPlan?.thursday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.thursday.duration;
+            const caloriesBurnedOnFriday = currentWeekWorkoutPlan?.friday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.friday.duration;
+            const caloriesBurnedOnSaturday = currentWeekWorkoutPlan?.saturday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.saturday.duration;
+            const caloriesBurnedOnSunday = currentWeekWorkoutPlan?.sunday.workout.caloriesPerMinute * currentWeekWorkoutPlan?.sunday.duration;
+            const sum : number = caloriesBurnedOnMonday + caloriesBurnedOnTuesday + caloriesBurnedOnWednesday + caloriesBurnedOnThursday
+            + caloriesBurnedOnFriday + caloriesBurnedOnSaturday + caloriesBurnedOnSunday;
+            return sum;
+        }
+        return 0;
+    }
 useEffect(() => {
     fetchWorkouts();
     loadUser();
@@ -190,7 +199,7 @@ useEffect(() => {
                 </form>
             </div>
             <p>Calories you need to reduce per week for whished weight reduction: {calculateCaloriesNeedToReducePerWeekForTargetWeightReduce()}</p>
-            {/*<p>Calories you will reduce this week with through your current workoutplan: {calculateCaloreisReducedByWorkoutplan()}</p>*/}
+            <p>Calories you will reduce this week with through your current workoutplan: {calculateCaloriesReducedByCurrentWorkoutplan()}</p>
         </div>
     )
 }
